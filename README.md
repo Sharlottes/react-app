@@ -9,7 +9,7 @@ my first react game web..?
 
 ## Features
 
-there are verious of way to get counts.
+there are various of way to get counts.
 
 * screen self-tap (free)
 * auto-tap (1000c~)

@@ -1,10 +1,11 @@
 import React from 'react';
+import './Counter.css';
 
 class Counter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 1000,
+            count: 10000,
             tap: {
                 amount: 1,
                 cost: 100,
@@ -14,6 +15,11 @@ class Counter extends React.Component {
                 amount: 0,
                 cost: 1000,
                 multiplier: 1
+            },
+            random: {
+                amount: 0,
+                cost: 5000,
+                result: 0
             }
         };
 
@@ -50,21 +56,6 @@ class Counter extends React.Component {
         });
     };
 
-    auto() {
-        if (this.state.count >= this.state.auto.cost) {
-            this.setState({
-                count: this.state.count - this.state.auto.cost,
-                auto: {
-                    amount: this.state.auto.amount + 0.1,
-                    cost: Number((this.state.auto.cost * 1.75).toFixed(0)),
-                    multiplier: this.state.auto.multiplier
-                }
-            })
-        } else {
-            alert(`not enough count to upgrade! : ${this.state.auto.cost} count`);
-        }
-    }
-
     upgrade() {
         if (this.state.count >= this.state.tap.cost) {
             this.setState({
@@ -80,21 +71,58 @@ class Counter extends React.Component {
         }
     }
 
+    auto() {
+        if (this.state.count >= this.state.auto.cost) {
+            this.setState({
+                count: this.state.count - this.state.auto.cost,
+                auto: {
+                    amount: this.state.auto.amount + 0.1,
+                    cost: Number((this.state.auto.cost * 1.75).toFixed(0)),
+                    multiplier: this.state.auto.multiplier
+                }
+            })
+        } else {
+            alert(`not enough count to ${this.state.auto.amount > 0 ? 'upgrade' : 'buy'}! : ${this.state.auto.cost} count`);
+        }
+    }
+
+    random() {
+        if (this.state.count >= this.state.random.cost) {
+            var rand = Math.random();
+            var result = Number(((rand > 0.5 ? -1 : rand < 0.5 ? 1 : 0) * Math.random() * this.state.random.cost).toFixed(2));
+            this.setState({
+                count: this.state.count + (this.state.random.amount === 0 ? -this.state.random.cost : result),
+                random: {
+                    amount: 1,
+                    cost: 1000,
+                    result: this.state.random.amount === 0 ? 0 : result
+                }
+            })
+        } else {
+            alert(`not enough count to ${this.state.random.amount > 0 ? 'buy' : 'start'}! : ${this.state.random.cost} count`);
+        }
+    }
+
     render() {
-        var { count, tap, auto } = this.state;
+        var { count, tap, auto, random } = this.state;
         return (
             <div>
                 <h1>Count: {count}</h1>
-                <button className='upgrade1' onClick={(e) => this.upgrade(e)}>
+                <button className='ripple' onClick={(e) => this.upgrade(e)}>
                     <b>Self Tap</b><br />
                     Upgrade: {tap.amount} -&gt; {tap.amount + 1}<br />
                     Cost: {tap.cost}</button>
-                <button className='auto1' onClick={(e) => this.auto(e)}>
-                    <b>Auto Tapping</b><br />
-                    {auto.amount > 0 ? "Upgrade" : 'Buy'}: {auto.amount * 10}/s -&gt; {(auto.amount + 0.1) * 10}/s<br />
-                    Cost: {auto.cost}</button><br />
+                <button className='ripple' onClick={(e) => this.auto(e)}>
+                    <b>Auto Tap</b><br />
+                    {auto.amount > 0 ? "Upgrade" : 'Buy'}: {Number((auto.amount * 10).toFixed(1))}/s -&gt; {Number(((auto.amount + 0.1) * 10).toFixed(1))}/s<br />
+                    Cost: {auto.cost}</button>
+                <button className='ripple' onClick={(e) => this.random(e)}>
+                    <b>Random</b><br />
+                    {random.amount > 0 ? "Start" : 'Buy'}<br />
+                    Cost: {random.cost}<br />
+                    you got: {random.result}</button><br />
                 <span id="warntap" color="red">Warning: you have too many counts. self-tap efficient is decreased to <b>{this.state.tap.multiplier * 100}%</b>({this.state.tap.amount * this.state.tap.multiplier})</span><br />
-                <span id="warnauto" color="red">Warning: you have too many counts. auto-tapping efficient is decreased to <b>{this.state.tap.multiplier * 100}%</b>({this.state.auto.amount * this.state.auto.multiplier})</span>
+                <span id="warnauto" color="red">Warning: you have too many counts. auto-tap efficient is decreased to <b>{this.state.tap.multiplier * 100}%</b>({Number((this.state.auto.amount * 10).toFixed(1)) * this.state.auto.multiplier})</span>
             </div>
         );
     }

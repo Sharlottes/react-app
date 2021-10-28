@@ -26,5 +26,13 @@
     min-width: 500px;
   }
 
+  div {
+    -ms-user-select: none; 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
   /*from codepen https://codepen.io/finnhvman/pen/jLXKJw*/
   

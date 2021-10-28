@@ -23,8 +23,6 @@ class Counter extends React.Component {
             var warntap = document.getElementById("warntap");
             var warnauto = document.getElementById("warnauto");
 
-            //warntap.style.visibility = isOverStackTap;
-            warnauto.style.visibility = isOverStackAuto;
             warntap.style.display = isOverStackTap ? 'inline' : 'none';
             warnauto.style.display = isOverStackAuto ? 'inline' : 'none';
 
@@ -88,13 +86,15 @@ class Counter extends React.Component {
             <div>
                 <h1>Count: {count}</h1>
                 <button className='upgrade1' onClick={(e) => this.upgrade(e)}>
+                    <b>Self Tap</b><br />
                     Upgrade: {tap.amount} -&gt; {tap.amount + 1}<br />
                     Cost: {tap.cost}</button>
                 <button className='auto1' onClick={(e) => this.auto(e)}>
-                    Auto: {auto.amount * 10}/s -&gt; {(auto.amount + 0.1) * 10}/s<br />
+                    <b>Auto Tapping</b><br />
+                    {auto.amount > 0 ? "Upgrade" : 'Buy'}: {auto.amount * 10}/s -&gt; {(auto.amount + 0.1) * 10}/s<br />
                     Cost: {auto.cost}</button><br />
-                <span id="warntap" color="red">경고: 카운트가 너무 많아 탭 효율이 하락합니다: 50%</span><br/>
-                <span id="warnauto" color="red">경고: 카운트가 너무 많아 자동 효율이 하락합니다: 50%</span>
+                <span id="warntap" color="red">Warning: you have too many counts. self-tap efficient is decreased to <b>{this.state.tap.multiplier * 100}%</b>({this.state.tap.amount * this.state.tap.multiplier})</span><br />
+                <span id="warnauto" color="red">Warning: you have too many counts. auto-tapping efficient is decreased to <b>{this.state.tap.multiplier * 100}%</b>({this.state.auto.amount * this.state.auto.multiplier})</span>
             </div>
         );
     }

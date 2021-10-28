@@ -109,20 +109,20 @@ class Counter extends React.Component {
             <div>
                 <h1>Count: {count}</h1>
                 <button className='ripple' onClick={(e) => this.upgrade(e)}>
-                    <b>Self Tap</b><br />
+                    <b>SELF TAP</b><br />
                     Upgrade: {tap.amount} -&gt; {tap.amount + 1}<br />
                     Cost: {tap.cost}</button>
                 <button className='ripple' onClick={(e) => this.auto(e)}>
-                    <b>Auto Tap</b><br />
+                    <b>AUTO TAP</b><br />
                     {auto.amount > 0 ? "Upgrade" : 'Buy'}: {Number((auto.amount * 10).toFixed(1))}/s -&gt; {Number(((auto.amount + 0.1) * 10).toFixed(1))}/s<br />
                     Cost: {auto.cost}</button>
                 <button className='ripple' onClick={(e) => this.random(e)}>
-                    <b>Random</b><br />
+                    <b>RANDOM</b><br />
                     {random.amount > 0 ? "Start" : 'Buy'}<br />
                     Cost: {random.cost}<br />
                     you got: {random.result}</button><br />
-                <span id="warntap" color="red">Warning: you have too many counts. self-tap efficient is decreased to <b>{this.state.tap.multiplier * 100}%</b>({this.state.tap.amount * this.state.tap.multiplier})</span><br />
-                <span id="warnauto" color="red">Warning: you have too many counts. auto-tap efficient is decreased to <b>{this.state.tap.multiplier * 100}%</b>({Number((this.state.auto.amount * 10).toFixed(1)) * this.state.auto.multiplier})</span>
+                <span id="warntap" color="red" style={{display: count >= tap.cost * 3 ? 'inline' : 'hidden'}}>Warning: you have too many counts. self-tap efficient is decreased to <b>{this.state.tap.multiplier * 100}%</b>({this.state.tap.amount * this.state.tap.multiplier})</span><br />
+                <span id="warnauto" color="red" style={{display: count >= auto.cost * 2 ? 'inline' : 'hidden'}}>Warning: you have too many counts. auto-tap efficient is decreased to <b>{this.state.tap.multiplier * 100}%</b>({Number((this.state.auto.amount * 10).toFixed(1)) * this.state.auto.multiplier})</span>
             </div>
         );
     }

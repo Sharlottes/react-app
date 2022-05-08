@@ -1,0 +1,81 @@
+/* Ripple effect */
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+
+.ripple:hover {
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%)
+    center/15000%;
+}
+
+.ripple:active {
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+/* Button style */
+button {
+  border: none;
+  border-radius: 2px;
+  padding: 12px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  background-color: #2196f3;
+  box-shadow: 0 0 4px #999;
+  outline: none;
+}
+
+/*from codepen https://codepen.io/finnhvman/pen/jLXKJw*/
+
+label {
+  display: inline-block;
+  position: relative;
+  color: #fff;
+  bottom: 2em;
+  right: 11em;
+}
+label > input {
+  display: none;
+}
+label i {
+  display: inline-block;
+  padding: 2px;
+  width: 40px;
+  height: 20px;
+  border-radius: 13px;
+  vertical-align: middle;
+  transition: 0.25s 0.09s;
+  position: relative;
+  background: #d8d9db;
+  box-sizing: initial;
+  left: 1em;
+}
+label i:after {
+  content: " ";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  left: 2px;
+  transition: 0.25s;
+}
+label > input:checked + i {
+  background: #4bd865;
+}
+label > input:checked + i:after {
+  transform: translateX(20px);
+}
+label:hover {
+  cursor: pointer;
+}
+
+/*from codepen https://codepen.io/havardob/pen/RajdNR*/
+
+button.ripple {
+  min-width: 500px;
+  max-width: 100%;
+}
